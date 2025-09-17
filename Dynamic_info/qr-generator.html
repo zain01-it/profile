@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital QR Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: #f4fdf4;
+    }
+    h1 { color: #2a7c2a; }
+    input {
+      padding: 10px;
+      width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      background: #2a7c2a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+    #qr-container {
+      margin-top: 20px;
+      position: relative;
+      display: inline-block;
+    }
+    /* custom green + */
+    .plus {
+      position: absolute;
+      width: 23px;
+      height: 23px;
+    }
+    .plus::before,
+    .plus::after {
+      content: "";
+      position: absolute;
+      background: #2a7c2a;
+    }
+    .plus::before {
+      left: 50%; top: 0;
+      transform: translateX(-50%);
+      width: 8px; height: 100%;
+      border-radius: 4px;
+    }
+    .plus::after {
+      top: 50%; left: 0;
+      transform: translateY(-50%);
+      height: 8px; width: 100%;
+      border-radius: 4px;
+    }
+    .all-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+    /* Position each "+" */
+    .top-left { top: 24px; left: 24px; }
+    .top-right { top: 24px; right: 24px; }
+    .bottom-left { bottom: 28px; left: 24px; }
+  </style>
+</head>
+<body>
+<div class="all-container">
+  <h1>DABSMH QR Generator</h1>
+  <input type="text" id="url" placeholder="Enter URL here">
+  <br>
+  <button onclick="generateQR()">Generate QR</button>
+  <button id="downloadBtn" onclick="saveAsPNG()" disabled>Save as PNG</button>
+  
+  <div id="qr-container"></div>
+</div>
+  <!-- QR Code Styling Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling/lib/qr-code-styling.js"></script>
+  <script>
+    let qrCode = null;
+
+    function generateQR() {
+      const url = document.getElementById("url").value;
+      if (!url) {
+        alert("Please enter a URL!");
+        return;
+      }
+
+      const container = document.getElementById("qr-container");
+      container.innerHTML = ""; // reset before generating new
+
+      // wrapper to control exact padding/size so overlays align consistently
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+      wrapper.style.display = "inline-block";
+      wrapper.style.background = "#ffffff";
+      wrapper.style.padding = "10px"; // quiet zone
+      container.appendChild(wrapper);
+
+      const qrDiv = document.createElement("div");
+      wrapper.appendChild(qrDiv);
+
+      // add green + overlays
+      // no custom overlays; use default QR finder patterns
+
+      // create new QR
+      qrCode = new QRCodeStyling({
+        width: 250,
+        height: 250,
+        data: url,
+        margin: 0,
+        qrOptions: {
+          typeNumber: 6, // fixed version for consistent finder size (N = 41)
+          errorCorrectionLevel: 'Q'
+        },
+        dotsOptions: {
+          color: "#000000",
+          type: "dots"
+        },
+        backgroundOptions: {
+          color: "#ffffff"
+        },
+        cornersSquareOptions: {
+          type: "extra-rounded",
+          color: "#000000"
+        },
+        cornersDotOptions: {
+          type: "dot",
+          color: "#2a7c2a"
+        }
+      });
+
+      qrCode.append(qrDiv);
+
+      // enable download button once a QR is generated
+      const dlBtn = document.getElementById("downloadBtn");
+      if (dlBtn) dlBtn.disabled = false;
+    }
+
+    async function saveAsPNG() {
+      if (!qrCode) {
+        alert("Please generate a QR code first.");
+        return;
+      }
+      try {
+        // built-in download without overlays
+        qrCode.download({ name: "qr-code", extension: "png" });
+      } catch (e) {
+        console.error(e);
+        alert("Download failed. Please try again.");
+      }
+    }
+  </script>
+</body>
+</html>
