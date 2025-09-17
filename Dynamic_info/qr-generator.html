@@ -12,6 +12,33 @@
       padding: 40px;
       background: #f4fdf4;
     }
+    /* responsive header */
+    .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 29px;
+        padding: 12px 16px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        max-width: 980px;
+        margin: 0 auto 24px;
+        flex-wrap: nowrap;
+        text-align: left;
+    }
+    .site-logo {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+        padding: 0px 0px 0px 10px;
+    }
+    .site-title {
+      color: #1f2937;
+      font-weight: 700;
+      line-height: 1.2;
+      font-size: clamp(16px, 2.2vw, 22px);
+    }
     h1 { color: #2a7c2a; }
     input {
       padding: 10px;
@@ -70,8 +97,12 @@
   </style>
 </head>
 <body>
+<header class="site-header">
+  <img src="DABSMH.png" alt="DABSMH logo" class="site-logo">
+  <div class="site-title">Datu Alawaddin Bandon Sr. Memorial Hospital</div>
+</header>
 <div class="all-container">
-  <h1>DABSMH QR Generator</h1>
+  <h1>QR Generator</h1>
   <input type="text" id="url" placeholder="Enter URL here">
   <br>
   <button onclick="generateQR()">Generate QR</button>
