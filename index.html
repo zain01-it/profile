@@ -1,10 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
-    <body style="margin:0;background:linear-gradient(135deg,#74ebd5 0%,#ACB6E5 100%);font-family:Arial,Helvetica,sans-serif;">
-        <div class="container" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
-            <div style="background:rgba(255,255,255,0.92);padding:24px 36px;border-radius:12px;box-shadow:0 12px 24px rgba(0,0,0,0.2);">
-                <h1 style="margin:0;color:#1f2937;letter-spacing:0.5px;">Scan QR ID to begin</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Datu Alawaddin Bandon Sr. Memorial Hospital</title>
+        <style>
+            :root { --brand:#2a7c2a; --dark:#12222b; --text:#1f2937; --muted:#6b7280; --bg:#f7faf9; }
+            * { box-sizing:border-box; }
+            body { margin:0; font-family:Arial, Helvetica, sans-serif; color:var(--text); background:var(--bg); }
+            a { color:inherit; text-decoration:none; }
+            img { max-width:100%; display:block; }
+            .container { width:100%; max-width:1100px; padding:0 16px; margin:0 auto; }
+
+            /* Header */
+            header { position:sticky; top:0; z-index:50; background:#fff; box-shadow:0 6px 16px rgba(0,0,0,0.06); }
+            .header-inner { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0; }
+            .brand { display:flex; align-items:center; gap:12px; }
+            .brand-logo { width:44px; height:44px; object-fit:contain; }
+            .brand-title { font-weight:700; line-height:1.2; color:var(--dark); font-size:clamp(16px,2.2vw,20px); }
+            nav ul { list-style:none; display:flex; gap:16px; padding:0; margin:0; }
+            nav a { padding:8px 12px; border-radius:8px; color:var(--dark); font-weight:600; }
+            nav a:hover { background:rgba(42,124,42,0.08); color:var(--brand); }
+
+            /* Hero */
+            .hero { background:linear-gradient(135deg, #e8f6ef 0%, #ffffff 100%); border-bottom:1px solid #e5e7eb; }
+            .hero-grid { display:grid; grid-template-columns:1.1fr 0.9fr; gap:24px; align-items:center; padding:32px 0; }
+            .hero h1 { margin:0 0 12px; color:var(--dark); font-size:clamp(22px,3.2vw,34px); }
+            .hero p { margin:0 0 16px; color:var(--muted); }
+            .cta { display:flex; gap:12px; flex-wrap:wrap; }
+            .btn { background:var(--brand); color:#fff; padding:10px 16px; border-radius:10px; font-weight:700; box-shadow:0 8px 18px rgba(42,124,42,0.25); }
+            .btn.secondary { background:#fff; color:var(--brand); border:1px solid rgba(42,124,42,0.3); box-shadow:none; }
+
+            /* Announcements */
+            .section { padding:28px 0; }
+            .section h2 { margin:0 0 16px; color:var(--dark); font-size:clamp(18px,2.6vw,26px); }
+            .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+            .card { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; box-shadow:0 6px 16px rgba(0,0,0,0.05); }
+            .card h3 { margin:0 0 8px; font-size:18px; color:var(--dark); }
+            .card p { margin:0; color:var(--muted); }
+
+            /* Services */
+            .services { background:#ffffff; border-top:1px solid #e5e7eb; border-bottom:1px solid #e5e7eb; }
+            .service-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+            .service { padding:16px; border:1px solid #e5e7eb; border-radius:10px; background:#fafafa; }
+            .service h4 { margin:0 0 8px; color:var(--dark); }
+            .service p { margin:0; color:var(--muted); }
+
+            /* Events */
+            .timeline { display:grid; gap:12px; }
+            .event { background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:12px 14px; }
+            .event .meta { color:var(--muted); font-size:12px; margin-bottom:4px; }
+
+            /* Contact */
+            .contact { background:#ffffff; border-top:1px solid #e5e7eb; }
+            .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+            .contact .panel { background:#fafafa; border:1px solid #e5e7eb; border-radius:10px; padding:16px; }
+            .contact .panel h3 { margin:0 0 10px; color:var(--dark); }
+            .contact .panel p { margin:0 0 6px; color:var(--muted); }
+
+            /* Footer */
+            footer { color:#6b7280; font-size:12px; padding:14px 0 28px; }
+
+            /* Responsive */
+            @media (max-width: 900px) {
+                .hero-grid { grid-template-columns:1fr; }
+                .service-grid { grid-template-columns:repeat(2,1fr); }
+                .cards { grid-template-columns:1fr 1fr; }
+                .contact-grid { grid-template-columns:1fr; }
+            }
+            @media (max-width: 560px) {
+                nav ul { gap:8px; }
+                .service-grid { grid-template-columns:1fr; }
+                .cards { grid-template-columns:1fr; }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="container header-inner">
+                <div class="brand">
+                    <img class="brand-logo" src="Dynamic_info/DABSMH.png" alt="DABSMH Logo">
+                    <div class="brand-title">Datu Alawaddin Bandon Sr. Memorial Hospital</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="Dynamic_info/qr-generator.html">QR Generator</a></li>
+                    </ul>
+                </nav>
             </div>
-        </div>
+        </header>
+
+        <main id="home">
+            <section class="hero">
+                <div class="container hero-grid">
+                    <div>
+                        <h1>Quality Care for the Community</h1>
+                        <p>Compassionate, patient-centered services powered by dedicated professionals and modern facilities.</p>
+                        <div class="cta">
+                            <a class="btn" href="#announcements">View Announcements</a>
+                            <a class="btn secondary" href="Dynamic_info/qr-generator.html">Open QR Generator</a>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="Dynamic_info/DABSMH.png" alt="Hospital Emblem">
+                    </div>
+                </div>
+            </section>
+
+            <section id="announcements" class="section">
+                <div class="container">
+                    <h2>Announcements</h2>
+                    <div class="cards">
+                        <div class="card">
+                            <h3>Free Vaccination Drive</h3>
+                            <p>Every Saturday, 8 AM – 3 PM at the Outpatient Department. Bring a valid ID.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Clinic Schedule Update</h3>
+                            <p>Internal Medicine extended to 7 PM on weekdays to serve you better.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Blood Donation Campaign</h3>
+                            <p>Join our quarterly drive. Register at the Information Desk or call our hotline.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section services">
+                <div class="container">
+                    <h2>Our Services</h2>
+                    <div class="service-grid">
+                        <div class="service">
+                            <h4>Emergency Care</h4>
+                            <p>24/7 emergency and trauma services with rapid response teams.</p>
+                        </div>
+                        <div class="service">
+                            <h4>Outpatient Clinics</h4>
+                            <p>General and specialty consultations by licensed practitioners.</p>
+                        </div>
+                        <div class="service">
+                            <h4>Laboratory & Diagnostics</h4>
+                            <p>Comprehensive lab tests, X-ray, ultrasound, and ECG.</p>
+                        </div>
+                        <div class="service">
+                            <h4>Maternity & Pediatrics</h4>
+                            <p>Maternal care, delivery, and pediatric services for your family.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="events" class="section">
+                <div class="container">
+                    <h2>Events</h2>
+                    <div class="timeline">
+                        <div class="event">
+                            <div class="meta">Oct 12, 2025</div>
+                            <div>Community Health Fair – Free screenings and wellness talks.</div>
+                        </div>
+                        <div class="event">
+                            <div class="meta">Nov 5, 2025</div>
+                            <div>Diabetes Awareness Seminar – Prevention and management tips.</div>
+                        </div>
+                        <div class="event">
+                            <div class="meta">Dec 1, 2025</div>
+                            <div>World AIDS Day – Counseling and testing services available.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section contact">
+                <div class="container contact-grid">
+                    <div class="panel">
+                        <h3>Contact Us</h3>
+                        <p><strong>Address:</strong> Main Hospital Road, Bandon, Philippines</p>
+                        <p><strong>Phone:</strong> (064) 123-4567</p>
+                        <p><strong>Email:</strong> info@dabs-mh.gov.ph</p>
+                        <p><strong>Hours:</strong> Open 24/7</p>
+                    </div>
+                    <div class="panel">
+                        <h3>Getting Here</h3>
+                        <p>Parking available on-site. Public transport stops at the main gate.</p>
+                        <p>Security and triage desks are stationed at the main lobby.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="container">
+                    <h2>Gallery</h2>
+                    <div class="cards" style="grid-template-columns:1fr; gap:20px;">
+                        <div class="card" style="padding:0; overflow:hidden;">
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:stretch;">
+                                <div style="background:#f3f4f6;">
+                                    <img src="image/Shifa.png" alt="Hospital Facility" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div style="padding:16px; display:flex; flex-direction:column; justify-content:center;">
+                                    <h3 style="margin:0 0 8px;">Du'a for Shifa</h3>
+                                    <p style="margin:0; color:#6b7280;">Our ER operates 24/7 with skilled clinicians, triage, and resuscitation areas ready for urgent care.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="padding:0; overflow:hidden;">
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:stretch;">
+                                <div style="background:#f3f4f6;">
+                                    <img src="image/SICKNESS.png" alt="Outpatient Clinic" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div style="padding:16px; display:flex; flex-direction:column; justify-content:center;">
+                                    <h3 style="margin:0 0 8px;">Du'a for Sickness</h3>
+                                    <p style="margin:0; color:#6b7280;">General and specialty clinics provide accessible consultations and follow-up care for the community.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:12px;">
+                        <a class="btn secondary" href="Dynamic_info/tarpaulin.html">View Tarpaulin Page</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                © <span id="y"></span> Datu Alawaddin Bandon Sr. Memorial Hospital. All rights reserved.
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById('y').textContent = new Date().getFullYear();
+        </script>
     </body>
 </html>
