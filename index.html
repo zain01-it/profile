@@ -18,26 +18,63 @@
             .brand { display:flex; align-items:center; gap:12px; }
             .brand-logo { width:44px; height:44px; object-fit:contain; }
             .brand-title { font-weight:700; line-height:1.2; color:var(--dark); font-size:clamp(16px,2.2vw,20px); }
-            nav ul { list-style:none; display:flex; gap:16px; padding:0; margin:0; }
-            nav a { padding:8px 12px; border-radius:8px; color:var(--dark); font-weight:600; }
+            nav ul { list-style:none; display:flex; gap:16px; padding:0; margin:0; flex-wrap:wrap; }
+            nav a { padding:8px 12px; border-radius:8px; color:var(--dark); font-weight:600; font-size:clamp(12px, 1.8vw, 14px); }
             nav a:hover { background:rgba(42,124,42,0.08); color:var(--brand); }
+            
+            /* Mobile Menu */
+            .mobile-menu-toggle { display:none; background:none; border:none; cursor:pointer; padding:8px; }
+            .hamburger { width:25px; height:3px; background:var(--brand); margin:5px 0; transition:0.3s; border-radius:2px; }
+            .hamburger:nth-child(1) { transform-origin:0% 0%; }
+            .hamburger:nth-child(2) { transform-origin:0% 50%; }
+            .hamburger:nth-child(3) { transform-origin:0% 100%; }
+            .mobile-menu-toggle.active .hamburger:nth-child(1) { transform:rotate(45deg) translate(1px, -1px); }
+            .mobile-menu-toggle.active .hamburger:nth-child(2) { opacity:0; }
+            .mobile-menu-toggle.active .hamburger:nth-child(3) { transform:rotate(-45deg) translate(1px, 1px); }
 
             /* Hero */
-            .hero { background:linear-gradient(135deg, #e8f6ef 0%, #ffffff 100%); border-bottom:1px solid #e5e7eb; }
+            .hero { background:linear-gradient(135deg, #e8f6ef 0%, #ffffff 100%); position:relative; overflow:hidden; }
+            .floating-shapes { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+            .shape { position:absolute; opacity:0.8; animation:float 8s ease-in-out infinite; border:2px solid var(--brand); background:transparent; box-shadow:0 0 20px rgba(42,124,42,0.5), inset 0 0 20px rgba(42,124,42,0.2); }
+            .shape:nth-child(1) { top:15%; left:8%; width:60px; height:60px; border-radius:50%; animation-delay:0s; }
+            .shape:nth-child(2) { top:55%; right:12%; width:40px; height:40px; transform:rotate(45deg); animation-delay:1.5s; }
+            .shape:nth-child(3) { bottom:25%; left:15%; width:80px; height:80px; border-radius:20px; animation-delay:3s; }
+            .shape:nth-child(4) { top:35%; right:25%; width:50px; height:50px; clip-path:polygon(50% 0%, 0% 100%, 100% 100%); border:none; box-shadow:0 0 20px rgba(42,124,42,0.5); animation-delay:0.8s; }
+            .shape:nth-child(5) { bottom:15%; right:8%; width:70px; height:70px; border-radius:50% 20% 50% 20%; animation-delay:2.5s; }
+            .shape:nth-child(6) { top:70%; left:5%; width:45px; height:45px; border-radius:10px; transform:rotate(30deg); animation-delay:4.2s; }
+            .shape:nth-child(7) { top:10%; right:5%; width:55px; height:55px; border-radius:50% 0% 50% 0%; animation-delay:1.8s; }
+            @keyframes float { 
+                0%, 100% { transform:translateY(0px) rotate(0deg) scale(1); opacity:0.8; } 
+                25% { transform:translateY(-15px) rotate(90deg) scale(1.1); opacity:1; }
+                50% { transform:translateY(-25px) rotate(180deg) scale(0.9); opacity:0.6; }
+                75% { transform:translateY(-10px) rotate(270deg) scale(1.05); opacity:0.9; }
+            }
+            .hero-content { position:relative; z-index:2; }
             .hero-grid { display:grid; grid-template-columns:1.1fr 0.9fr; gap:24px; align-items:center; padding:32px 0; }
-            .hero h1 { margin:0 0 12px; color:var(--dark); font-size:clamp(22px,3.2vw,34px); }
-            .hero p { margin:0 0 16px; color:var(--muted); }
+            .hero h1 { margin:0 0 12px; color:var(--dark); font-size:clamp(22px,4vw,40px); line-height:1.2; }
+            .hero p { margin:0 0 16px; color:var(--muted); font-size:clamp(14px,2.4vw,16px); }
             .cta { display:flex; gap:12px; flex-wrap:wrap; }
-            .btn { background:var(--brand); color:#fff; padding:10px 16px; border-radius:10px; font-weight:700; box-shadow:0 8px 18px rgba(42,124,42,0.25); }
+            .btn { background:var(--brand); color:#fff; padding:10px 16px; border-radius:10px; font-weight:700; box-shadow:0 8px 18px rgba(42,124,42,0.25); font-size:clamp(12px,2vw,14px); }
             .btn.secondary { background:#fff; color:var(--brand); border:1px solid rgba(42,124,42,0.3); box-shadow:none; }
+
+            /* Cursor shadow */
+            .cursor-shadow { position:fixed; width:20px; height:20px; background:rgba(42,124,42,0.3); border-radius:50%; pointer-events:none; z-index:9999; transition:transform 0.1s ease; }
 
             /* Announcements */
             .section { padding:28px 0; }
+            #announcements { background:linear-gradient(135deg, #e8f6ef 0%, #f0f9f4 50%, #e8f6ef 100%); }
             .section h2 { margin:0 0 16px; color:var(--dark); font-size:clamp(18px,2.6vw,26px); }
             .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
             .card { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; box-shadow:0 6px 16px rgba(0,0,0,0.05); }
             .card h3 { margin:0 0 8px; font-size:18px; color:var(--dark); }
             .card p { margin:0; color:var(--muted); }
+
+            /* Gallery */
+            .gallery-rows { display:grid; grid-template-columns:1fr; gap:20px; }
+            .gallery-row { display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:stretch; }
+            .gallery-img { background:#f3f4f6; }
+            .gallery-img img { width:100%; height:100%; object-fit:cover; }
+            .gallery-desc { padding:16px; display:flex; flex-direction:column; justify-content:center; }
 
             /* Services */
             .services { background:#ffffff; border-top:1px solid #e5e7eb; border-bottom:1px solid #e5e7eb; }
@@ -67,13 +104,79 @@
                 .service-grid { grid-template-columns:repeat(2,1fr); }
                 .cards { grid-template-columns:1fr 1fr; }
                 .contact-grid { grid-template-columns:1fr; }
+                .header-inner { flex-wrap:wrap; }
+                .brand-title { font-size:clamp(16px,3vw,18px); text-align:center; }
+                nav ul { justify-content:center; }
+                .hero-grid > div:first-child { text-align:center; }
+                .cta { justify-content:center; }
+            }
+            @media (max-width: 768px) {
+                .mobile-menu-toggle { display:block; }
+                nav { position:absolute; top:100%; left:0; right:0; background:#fff; box-shadow:0 6px 16px rgba(0,0,0,0.1); transform:translateY(-100%); opacity:0; visibility:hidden; transition:all 0.3s ease; }
+                nav.active { transform:translateY(0); opacity:1; visibility:visible; }
+                nav ul { flex-direction:column; padding:16px; gap:0; }
+                nav a { display:block; padding:12px 16px; border-radius:8px; margin:4px 0; }
+                .header-inner { position:relative; }
             }
             @media (max-width: 560px) {
-                nav ul { gap:8px; }
                 .service-grid { grid-template-columns:1fr; }
                 .cards { grid-template-columns:1fr; }
+                .gallery-row { grid-template-columns:1fr; }
+                .hero-grid > div:last-child { display:none; }
+                .brand-title { font-size:clamp(14px,2.5vw,16px); }
+                .cta a { flex:1 1 140px; text-align:center; }
             }
-        </style>
+            .hero h1 {
+                margin: 0 0 12px;
+                color: #ffffff;
+                font-size: clamp(22px, 3.2vw, 34px);
+            }
+            .hero p {
+                margin: 0 0 16px;
+                color: #ffffff;
+            }
+            .shape {
+                position: absolute;
+                opacity: 0.8;
+                animation: float 8s ease-in-out infinite;
+                border: 2px solid #41fdd0;
+                background: transparent;
+                box-shadow: 0 0 20px rgba(42, 124, 42, 0.5), inset 0 0 20px rgba(42, 124, 42, 0.2);
+            }
+            .hero-grid {
+                display: grid;
+                padding: 32px 68px;
+            }
+            #announcements {
+                background: linear-gradient(168deg, #13adb7 0%, #a8dfeb 50%, #7181bb 100%);
+            }
+            .gallery-row {
+                gap: 7px;
+            }
+            section#announcements {
+                margin-top: -1px;
+            }
+            #announcements {
+                background: linear-gradient(174deg, #13adb7 0%, #a8dfeb 50%, #7181bb 100%);
+            }
+            nav a {
+                background: #ffffff;
+                color: #6b6b6b;
+                border: 1px solid gray;
+            }
+
+            nav a:hover {
+                background: green;
+                color: white;
+                transition: 0.3s;
+            }
+            footer {
+                color: #ffffff;
+                font-size: 12px;
+                padding: 14px 0 28px;
+                background: #13adb7;
+            }
+                    </style>
     </head>
     <body>
         <header>
@@ -82,22 +185,37 @@
                     <img class="brand-logo" src="Dynamic_info/DABSMH.png" alt="DABSMH Logo">
                     <div class="brand-title">Datu Alawaddin Bandon Sr. Memorial Hospital</div>
                 </div>
-                <nav>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <div class="hamburger"></div>
+                    <div class="hamburger"></div>
+                    <div class="hamburger"></div>
+                </button>
+                <nav id="mobile-nav">
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#events">Events</a></li>
-                        <li><a href="Dynamic_info/qr-generator.html">QR Generator</a></li>
+                        <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                        <li><a href="Dynamic_info/tarpaulin.html">Images</a></li>
+                        <li><a href="#events" onclick="closeMobileMenu()">Events</a></li>
+                        <li><a href="Dynamic_info/qr-generator.html" onclick="closeMobileMenu()">QR Generator</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
 
         <main id="home">
-            <section class="hero">
-                <div class="container hero-grid">
+            <section class="hero"  style="background-image: url('image/section.png');background-image: url(image/section.png);background-position: top;background-repeat: no-repeat;background-size: cover;">
+                <div class="floating-shapes">
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                </div>
+                <div class="container hero-grid hero-content">
                     <div>
                         <h1>Quality Care for the Community</h1>
-                        <p>Compassionate, patient-centered services powered by dedicated professionals and modern facilities.</p>
+                        <p>Compassionate, patient-centered services powered by dedicated professionals and standard facilities.</p>
                         <div class="cta">
                             <a class="btn" href="#announcements">View Announcements</a>
                             <a class="btn secondary" href="Dynamic_info/qr-generator.html">Open QR Generator</a>
@@ -128,6 +246,16 @@
                     </div>
                 </div>
             </section>
+            <section id="divider" class="section">
+                <div class="container">
+                    <div class="timeline">
+                        <div class="event">
+                            <div class="meta">Mission & Vision</div>
+                            <div style="background-image: url(image/divider.png );background-size: cover;background-position: center;background-repeat: no-repeat;width: 100%;height: 100%;height: 90%;padding: 38px 0px;;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <section class="section services">
                 <div class="container">
@@ -150,6 +278,13 @@
                             <p>Maternal care, delivery, and pediatric services for your family.</p>
                         </div>
                     </div>
+                    <br>
+                    <div class="timeline">
+                        <div class="event">
+                            <div class="meta">Mission & Vision</div>
+                            <div style="background-image: url(image/mv.png );background-size: cover;background-position: center;background-repeat: no-repeat;width: 100%;height: 100%;height: 90%;padding: 388px 0px;;"></div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -160,6 +295,11 @@
                         <div class="event">
                             <div class="meta">Oct 12, 2025</div>
                             <div>Community Health Fair – Free screenings and wellness talks.</div>
+                        </div>
+                        <div class="event">
+                            <div class="meta">Updated: September 10, 2025</div>
+                            <div>Organizational Chart</div><br>
+                            <div style="background-image: url(image/updated_OG_TARP.png );background-size: cover;background-position: center;background-repeat: no-repeat;width: 100%;height: 100%;height: 90%;padding: 326px 0px;"></div>
                         </div>
                         <div class="event">
                             <div class="meta">Nov 5, 2025</div>
@@ -193,26 +333,24 @@
             <section class="section">
                 <div class="container">
                     <h2>Gallery</h2>
-                    <div class="cards" style="grid-template-columns:1fr; gap:20px;">
+                    <div class="gallery-rows">
                         <div class="card" style="padding:0; overflow:hidden;">
-                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:stretch;">
-                                <div style="background:#f3f4f6;">
-                                    <img src="image/Shifa.png" alt="Hospital Facility" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="gallery-row">
+                                <div class="gallery-img">
+                                    <img src="image/2.png" alt="Hospital Facility">
                                 </div>
-                                <div style="padding:16px; display:flex; flex-direction:column; justify-content:center;">
-                                    <h3 style="margin:0 0 8px;">Du'a for Shifa</h3>
-                                    <p style="margin:0; color:#6b7280;">Our ER operates 24/7 with skilled clinicians, triage, and resuscitation areas ready for urgent care.</p>
+                                <div class="gallery-img">
+                                    <img src="image/3.png" alt="Hospital Facility">
                                 </div>
                             </div>
                         </div>
                         <div class="card" style="padding:0; overflow:hidden;">
-                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:stretch;">
-                                <div style="background:#f3f4f6;">
-                                    <img src="image/SICKNESS.png" alt="Outpatient Clinic" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="gallery-row">
+                                <div class="gallery-img">
+                                    <img src="image/4.png" alt="Outpatient Clinic">
                                 </div>
-                                <div style="padding:16px; display:flex; flex-direction:column; justify-content:center;">
-                                    <h3 style="margin:0 0 8px;">Du'a for Sickness</h3>
-                                    <p style="margin:0; color:#6b7280;">General and specialty clinics provide accessible consultations and follow-up care for the community.</p>
+                                <div class="gallery-img">
+                                    <img src="image/SMOKING.png" alt="Hospital Facility">
                                 </div>
                             </div>
                         </div>
@@ -222,16 +360,56 @@
                     </div>
                 </div>
             </section>
+            <section class="hero-bot"  style="background-image: url('image/PhilHealth30th.png');background-position: top;background-repeat: no-repeat;background-size: cover;padding: 443px 0px;">
+                <div class="floating-shapes">
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                </div>
+                <div class="container hero-grid hero-content">
+                    
+                </div>
+            </section>
         </main>
 
         <footer>
             <div class="container">
                 © <span id="y"></span> Datu Alawaddin Bandon Sr. Memorial Hospital. All rights reserved.
             </div>
+            <div class="container">
+                <span id="y"></span> Developed by: Zain
+            </div>
         </footer>
 
+        <div class="cursor-shadow"></div>
         <script>
             document.getElementById('y').textContent = new Date().getFullYear();
+            
+            // Cursor shadow effect
+            const cursor = document.querySelector('.cursor-shadow');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 10 + 'px';
+                cursor.style.top = e.clientY - 10 + 'px';
+            });
+            
+            // Mobile menu toggle
+            function toggleMobileMenu() {
+                const nav = document.getElementById('mobile-nav');
+                const toggle = document.querySelector('.mobile-menu-toggle');
+                nav.classList.toggle('active');
+                toggle.classList.toggle('active');
+            }
+            
+            function closeMobileMenu() {
+                const nav = document.getElementById('mobile-nav');
+                const toggle = document.querySelector('.mobile-menu-toggle');
+                nav.classList.remove('active');
+                toggle.classList.remove('active');
+            }
         </script>
     </body>
 </html>
